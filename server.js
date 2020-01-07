@@ -84,11 +84,11 @@ app.post("/profile", function(req, res) {
     var profileDetails = {
       firstName: data.firstName,
       lastName: data.lastName,
-      dob: data.dateOfBirth.substr(0, 10),
+      dob: data.dateOfBirth,
       gender: data.gender
     };
 
-    res.json(personStuff);
+    res.json(profileDetails);
   });
 });
 
@@ -156,6 +156,19 @@ app.post('/account-details', function(req, res) {
     transacDetails.monthlyExpenses.total = total.toFixed(2);
     console.log(transacDetails);
     res.json(transacDetails)
+  });
+});
+
+//List of Deposit Accounts
+app.get("/depositAccounts", function(req, res) {
+  //"http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/accounts/deposit/:customerId"
+  options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/accounts/deposit/2";
+  request(options, function(error, response, body) {
+    //convert JSON to javascript obj
+    //var data = JSON.parse(body);
+    //console.log(data);
+    res.write(body);
+    res.send();
   });
 });
 
