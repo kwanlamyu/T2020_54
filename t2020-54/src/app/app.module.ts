@@ -27,8 +27,7 @@ import { AccountDetailsComponent } from './account-details/account-details.compo
     FullComponent,
     AppHeaderComponent,
     SpinnerComponent,
-    AppSidebarComponent,
-    AccountDetailsComponent
+    AppSidebarComponent
   ],
   imports: [
     BrowserModule,

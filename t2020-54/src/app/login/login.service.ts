@@ -11,7 +11,7 @@ export class LoginService {
   login (userId: string) {
     console.log('@login Getting user id');
     let url = "http://192.168.50.103:3000/login";
-    
+
     let params = new HttpParams();
     params = params.append('userId', userId);
 

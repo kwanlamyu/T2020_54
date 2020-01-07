@@ -10,6 +10,11 @@ export class ProfileComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
   }
 
+  private firstName;
+  private lastName;
+  private dob;
+  private gender;
 }
