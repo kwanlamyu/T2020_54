@@ -206,55 +206,82 @@ app.get("/personalMessage", function(req, res) {
   });
 });
 
-app.get('/monthlyExpensesChart', function(req, res) {
+app.get('/account-details', function(req, res) {
 
-  //get the json data
-  var jsonData = []
-
-  //total amount spent for each category
-  var atm = 0;
-  var leisure = 0;
-  var food = 0;
-  var transport = 0;
-  var others = 0;
-
-  for (var id in jsonData) {
-    if (jsonData[id].tag.toString() === "ATM") {
-      atm += Number(jsonData[id].amount);
-    } else if (jsonData[id].tag.toString() === "LEISURE") {
-      leisure += Number(jsonData[id].amount);
-    } else if (jsonData[id].tag.toString() === "F&B") {
-      food += Number(jsonData[id].amount);
-    } else if (jsonData[id].tag.toString() === "TRANSFER") {
-      transport += Number(jsonData[id].amount);
-    } else {
-      others += Number(jsonData[id].amount);
+  var transacDetails = {
+    transactions: {},
+    monthlyExpenses: {
+      atm: 0,
+      leisure: 0,
+      food: 0,
+      transport: 0,
+      others: 0,
+      total: 0
     }
-  }
-  // total amount spent for the month
-  var total = Number(atm.toFixed(2)) + Number(leisure.toFixed(2)) + Number(food.toFixed(2)) + Number(transport.toFixed(2)) + Number(others.toFixed(2));
-  var jsonObj = [{
-      'atm': atm.toFixed(2)
-    },
-    {
-      'leisure': leisure.toFixed(2)
-    },
-    {
-      'food': food.toFixed(2)
-    },
-    {
-      'transport': transport.toFixed(2)
-    },
-    {
-      'others': others.toFixed(2)
-    },
-    {
-      'total': total.toFixed(2)
-    }
-  ];
+  };
 
-  res.send(jsonObj)
-})
+  options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/transactions/79?from=01-01-2018&to=01-30-2018";
+  request(options, function(error, response, body) {
+    //convert JSON to javascript obj
+    //var data = JSON.parse(body);
+    //console.log(data);
+    transacDetails.transactions = body;
+    //console.log(transacDetails.transactions);
+    // res.write(body);
+    // res.send();
+    //get the json data
+    var jsonData = JSON.parse(body);
+    //total amount spent for each category
+    var atm = 0;
+    var leisure = 0;
+    var food = 0;
+    var transport = 0;
+    var others = 0;
+
+    for (var id in jsonData) {
+      if (jsonData[id].tag.toString() === "ATM") {
+        atm += Number(jsonData[id].amount);
+      } else if (jsonData[id].tag.toString() === "LEISURE") {
+        leisure += Number(jsonData[id].amount);
+      } else if (jsonData[id].tag.toString() === "F&B") {
+        food += Number(jsonData[id].amount);
+      } else if (jsonData[id].tag.toString() === "TRANSFER") {
+        transport += Number(jsonData[id].amount);
+      } else {
+        others += Number(jsonData[id].amount);
+      }
+    }
+    // total amount spent for the month
+    var total = Number(atm.toFixed(2)) + Number(leisure.toFixed(2)) + Number(food.toFixed(2)) + Number(transport.toFixed(2)) + Number(others.toFixed(2));
+    // var jsonObj = [{
+    //     'atm': atm.toFixed(2)
+    //   },
+    //   {
+    //     'leisure': leisure.toFixed(2)
+    //   },
+    //   {
+    //     'food': food.toFixed(2)
+    //   },
+    //   {
+    //     'transport': transport.toFixed(2)
+    //   },
+    //   {
+    //     'others': others.toFixed(2)
+    //   },
+    //   {
+    //     'total': total.toFixed(2)
+    //   }
+    // ];
+    transacDetails.monthlyExpenses.atm = atm.toFixed(2);
+    transacDetails.monthlyExpenses.leisure = leisure.toFixed(2);
+    transacDetails.monthlyExpenses.food = food.toFixed(2);
+    transacDetails.monthlyExpenses.transport = transport.toFixed(2);
+    transacDetails.monthlyExpenses.others = others.toFixed(2);
+    transacDetails.monthlyExpenses.total = total.toFixed(2);
+    console.log(transacDetails);
+    res.json(transacDetails)
+  });
+});
 
 
 app.listen(3000, function() {
