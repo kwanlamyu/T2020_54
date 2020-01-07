@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams} from '@angular/common/http';
-import { UserSession} from '../UserSession';
-import {Router} from '@angular/router';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -46,11 +45,9 @@ export class LoginService {
 
   createUserSession(){
     console.log('@login: creating user session');
-    var newSession: any = {};
 
-    newSession.userId = this.userId;
-    newSession.userName = this.userName;
+    sessionStorage.setItem("userId", this.userId);
+    sessionStorage.setItem("userName", this.userName);
 
-    UserSession.createByObj(newSession);
   }
 }
