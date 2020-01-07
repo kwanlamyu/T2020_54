@@ -31,7 +31,6 @@ export class LoginService {
               this.userId = response['customerId'];
               this.userName = response['userName'];
               this.createUserSession();
-              this.router.navigateByUrl("/dashboard");
               resolve(response);
             }
           },
