@@ -25,8 +25,7 @@ import { LoginComponent } from './login/login.component';
     FullComponent,
     AppHeaderComponent,
     SpinnerComponent,
-    AppSidebarComponent,
-    LoginComponent
+    AppSidebarComponent
   ],
   imports: [
     BrowserModule,
