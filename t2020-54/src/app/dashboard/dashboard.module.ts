@@ -14,6 +14,7 @@ import { ChartistModule } from 'ng-chartist';
     FlexLayoutModule,
     ChartistModule,
     RouterModule.forChild(DashboardRoutes)
+
   ],
   declarations: [DashboardComponent]
 })

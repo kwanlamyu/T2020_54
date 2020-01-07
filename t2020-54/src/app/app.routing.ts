@@ -13,11 +13,6 @@ export const AppRoutes: Routes = [
         pathMatch: 'full'
       },
       {
-        path: 'login',
-        redirectTo: '/login',
-        pathMatch: 'full'
-      },
-      {
         path: '',
         loadChildren:
           () => import('./material-component/material.module').then(m => m.MaterialComponentsModule)
@@ -25,6 +20,10 @@ export const AppRoutes: Routes = [
       {
         path: 'dashboard',
         loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
+      },
+      {
+        path: 'login',
+        loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
       }
     ]
   }
