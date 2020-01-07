@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UserSession } from '../UserSession';
+import { ProfileService } from './profile.service'
 
 @Component({
   selector: 'app-profile',
@@ -8,7 +8,9 @@ import { UserSession } from '../UserSession';
 })
 export class ProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private profileService: ProfileService
+  ) { }
 
   private firstName;
   private lastName;
@@ -17,8 +19,19 @@ export class ProfileComponent implements OnInit {
   private userId;
 
   ngOnInit() {
-    this.userId = UserSession.userId;
+    this.userId = sessionStorage.getItem("userId");
     document.getElementById("profileImg")['src'] = "assets/images/users/" + this.userId + ".jpg";
+
+    this.profileService.getProfile(this.userId).then(
+      response => {
+        console.log(response);
+        this.firstName = response['firstName'];
+        this.lastName = response['lastName'];
+        this.dob = response['dob'];
+        this.gender = response['gender'];
+      }
+    );
+
   }
 
 }

@@ -1,8 +1,11 @@
-import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { Component, AfterViewInit, OnInit, Input } from '@angular/core';
+import { MatTabChangeEvent } from '@angular/material';
 
 import * as Chartist from 'chartist';
 import { ChartType, ChartEvent } from 'ng-chartist';
 declare var require: any;
+
+const data: any = require('./data.json');
 
 export interface Chart {
   type: ChartType;
@@ -23,6 +26,14 @@ export class AccountDetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onLinkClick(event: MatTabChangeEvent) {
+    window.dispatchEvent(new Event('resize'));
+  }
+
+  searchRange() {
+
   }
 
   // tslint:disable-next-line: member-ordering
