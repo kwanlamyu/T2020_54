@@ -19,13 +19,15 @@ export class LoginComponent implements OnInit {
   }
 
   onLogin (username: string, pin: string) {
-    this.loginService.login(username).then(
-      response => {
-        this.router.navigateByUrl("/dashboard");
-      }, error => {
-        alert("Please try again");
-      }
-    ) ;
+    if (!username || !pin) {
+      alert("Please enter username and pin");
+    } else {
+      this.loginService.login(username).then(
+        response => {
+          this.router.navigateByUrl("/dashboard");
+        }
+      );
+    }
     console.log(username, pin);
   }
 }

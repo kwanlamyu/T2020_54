@@ -25,13 +25,15 @@ export class LoginService {
     return new Promise(
       (resolve, reject) => {
         this.http.post(url, params).subscribe(
-          response  => {
+          response => {
             console.log(response);
-            if (response['customerId']) {
+            if (response && response['customerId']!==null) {
               this.userId = response['customerId'];
               this.userName = response['userName'];
               this.createUserSession();
               resolve(response);
+            } else {
+              alert("Please try again");
             }
           },
           error=> {

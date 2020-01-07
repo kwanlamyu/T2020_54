@@ -3,11 +3,11 @@
     <mat-card-title>LOGIN</mat-card-title>
     <mat-card-subtitle>Login to your DBS portal!</mat-card-subtitle>
     <mat-form-field>
-      <input matInput placeholder="Username" #username>
+      <input matInput placeholder="Username" #username required>
     </mat-form-field>
     <mat-form-field>
-      <input type="password" matInput placeholder="Pin" #pin>
+      <input type="password" matInput placeholder="Pin" #pin required>
     </mat-form-field>
-    <button mat-raised-button color="primary" (click)="onLogin(username.value, pin.value)">Login</button>
+    <button mat-raised-button color="primary" type="submit" (click)="onLogin(username.value, pin.value)">Login</button>
   </mat-card-content>
 </mat-card>
