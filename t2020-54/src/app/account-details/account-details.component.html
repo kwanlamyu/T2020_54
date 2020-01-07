@@ -1,58 +1,75 @@
-<div fxFlex.gt-lg="50" fxFlex.gt-md="50" fxFlex.gt-xs="100" fxFlex="100">
+<div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
   <mat-card class="oh text-center little-profile">
     <mat-card-content>
       <h3>Transaction Details</h3>
-      <mat-tab-group>
+      <mat-tab-group (selectedTabChange)="onLinkClick($event)">
         <mat-tab label="First" *ngFor="let tab of tabs">
-          <div
-            fxFlex.gt-lg="60"
-            fxFlex.gt-md="60"
-            fxFlex.gt-xs="100"
-            fxFlex="100"
-          >
-            <mat-card>
-              <mat-card-content>
-                <div class="d-flex flex-wrap">
-                  <div>
-                    <mat-card-title>Monthly Overview</mat-card-title>
-                    <mat-card-subtitle>Placeholder</mat-card-subtitle>
-                  </div>
-                  <div class="ml-auto">
-                    <ul class="list-inline">
-                      <li>
-                        <h6 class="text-success m-0">
-                          <i
-                            class="mdi mdi-checkbox-blank-circle font-10 m-r-10 "
-                          ></i
-                          >Ample
-                        </h6>
-                      </li>
-                      <li>
-                        <h6 class=" text-info m-0">
-                          <i
-                            class="mdi mdi-checkbox-blank-circle font-10 m-r-10"
-                          ></i
-                          >Pixel
-                        </h6>
-                      </li>
-                    </ul>
-                  </div>
+          <mat-card>
+            <mat-card-content>
+              <div class="d-flex flex-wrap">
+                <div>
+                  <mat-card-title>Monthly Overview</mat-card-title>
+                  <mat-card-subtitle>Placeholder</mat-card-subtitle>
                 </div>
+                <div class="ml-auto">
+                  <ul class="list-inline">
+                    <li>
+                      <h6 class="text-success m-0">
+                        <i
+                          class="mdi mdi-checkbox-blank-circle font-10 m-r-10 "
+                        ></i
+                        >Ample
+                      </h6>
+                    </li>
+                    <li>
+                      <h6 class=" text-info m-0">
+                        <i
+                          class="mdi mdi-checkbox-blank-circle font-10 m-r-10"
+                        ></i
+                        >Pixel
+                      </h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
 
-                <div class="barchrt" style="height:360px;">
-                  <x-chartist
-                    class=""
-                    [data]="barChart1.data"
-                    [type]="barChart1.type"
-                    [options]="barChart1.options"
-                    [responsiveOptions]="barChart1.responsiveOptions"
-                    [events]="barChart1.events"
-                  >
-                  </x-chartist>
+              <div class="barchrt" style="height:360px;">
+                <x-chartist
+                  class=""
+                  [data]="barChart1.data"
+                  [type]="barChart1.type"
+                  [options]="barChart1.options"
+                  [responsiveOptions]="barChart1.responsiveOptions"
+                  [events]="barChart1.events"
+                >
+                </x-chartist>
+              </div>
+            </mat-card-content>
+          </mat-card>
+          <mat-card [style.overflow-y]="'auto'" [style.height.px]="'600'">
+            <mat-card-content>
+              <div class="d-flex no-blcok">
+                <div class="m-r-20">
+                  <img
+                    class="img-circle"
+                    width="50"
+                    src="assets/images/users/1.jpg"
+                    alt="Image"
+                  />
                 </div>
-              </mat-card-content>
-            </mat-card>
-          </div>
+                <div class="p-b-20 b-b m-b-30">
+                  <h4 class="m-0">
+                    Nirav joshi
+                    <small class="text-muted">(5 minute ago)</small>
+                  </h4>
+                  <p class="text-muted">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    Integer nec odio. Praesent libero.
+                  </p>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
         </mat-tab>
       </mat-tab-group>
     </mat-card-content>

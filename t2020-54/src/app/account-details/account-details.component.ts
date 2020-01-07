@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { MatTabChangeEvent } from '@angular/material';
 
 import * as Chartist from 'chartist';
 import { ChartType, ChartEvent } from 'ng-chartist';
@@ -25,6 +26,10 @@ export class AccountDetailsComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onLinkClick(event: MatTabChangeEvent) {
+    window.dispatchEvent(new Event('resize'));
   }
 
   // tslint:disable-next-line: member-ordering
