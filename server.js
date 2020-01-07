@@ -19,19 +19,36 @@ var options = {
     token: "d74f68a7-ade9-4996-b74e-985353d31892"
   }
 };
+
+var userName = "";
+var accountId = 0;
+var customerId = 0;
+var messageId = 0;
 //req.body.<name of form>
 //homepage/login page
 
-app.get("/", function(req, res) {
+app.get("/login", function(req, res) {
   //send home screen html
-  //res.sendFile(__dirname + "");
-  res.send("<h1>Hello!</h1>");
+  res.sendFile(__dirname + "/t2020-54/src/app/login/login.component.html");
+  //console.log(__dirname + "/t2020-54/src/app/login/login.component.html");
+  //res.send("<h1>Hello!</h1>");
 });
 
 // Customer ID
-app.get("/customerId", function(req, res) {
+// app.get("/customerId", function(req, res) {
+//   //http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/:userName
+//   options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/marytan";
+//   request(options, function(error, response, body){
+//     //convert JSON to javascript obj
+//     //var data = JSON.parse(body);
+//     //console.log(data);
+//     res.write(body);
+//     res.send();
+//   });
+// });
+app.post("/login", function(req, res) {
   //http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/:userName
-  options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/marytan";
+  options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/" + req.body.userId;
   request(options, function(error, response, body){
     //convert JSON to javascript obj
     //var data = JSON.parse(body);
@@ -40,6 +57,7 @@ app.get("/customerId", function(req, res) {
     res.send();
   });
 });
+
 
 //customer details
 app.get("/customerDetails", function(req, res) {
