@@ -21,26 +21,30 @@
             class="img-circle"
           />
         </div>
-        <mat-card-actions>
-          <a href="account-details" mat-button color="warn">Account Details</a>
-        </mat-card-actions>
         <h3 class="m-b-0">Placeholder Name</h3>
-        <mat-tab-group>
+        <mat-tab-group mat-stretch-tabs>
           <mat-tab label="First" *ngFor="let tab of tabs">
             <div fxLayout="row" fxLayoutWrap="wrap" class="m-t-30">
               <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
-                <h3 class="m-0 font-light">Placeholder Account Type</h3>
+                <h5 class="m-0 font-light">Placeholder Account Type</h5>
                 <small>Account Type</small>
               </div>
               <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
-                <h3 class="m-0 font-light">Placeholder Account Name</h3>
+                <h5 class="m-0 font-light">Placeholder Account Name</h5>
                 <small>Account Name</small>
               </div>
               <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
-                <h3 class="m-0 font-light">Placeholder Account Number</h3>
+                <h5 class="m-0 font-light">Placeholder Account Number</h5>
                 <small>Account Number</small>
               </div>
             </div>
+            <div style="text-align: center; padding-top: 20px;">
+              <h5 class="m-0 font-light">Placeholder Account Balance</h5>
+              <small>Account Balance</small>
+            </div>
+            <mat-card-actions>
+              <a href="account-details" mat-button color="warn">Account Details</a>
+            </mat-card-actions>
           </mat-tab>
         </mat-tab-group>
       </mat-card-content>

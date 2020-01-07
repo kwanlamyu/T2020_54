@@ -1,4 +1,5 @@
 import { Component, AfterViewInit, OnInit } from '@angular/core';
+import { DashboardService } from './dashboard.service';
 
 import * as Chartist from 'chartist';
 import { ChartType, ChartEvent } from 'ng-chartist';
@@ -21,12 +22,24 @@ export interface Chart {
 })
 export class DashboardComponent implements AfterViewInit {
   tabs = ['First', 'Second', 'Third'];
+  userId: any;
+
+  constructor(
+    private dashboardService: DashboardService,
+  ) { }
 
   ngAfterViewInit() { }
 
   // tslint:disable-next-line: use-lifecycle-interface
   ngOnInit() {
-    console.log(data['Pie']);
+    this.userId = sessionStorage.getItem('userId');
+    // console.log(data['Pie']);
+    console.log(this.userId)
+    this.dashboardService.dashboard(this.userId).then(
+      response => {
+        console.log('dashboard res ', response);
+      }
+    );
   }
 
   // Barchart

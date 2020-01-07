@@ -1,8 +1,32 @@
 <div fxFlex.gt-lg="100" fxFlex.gt-md="100" fxFlex.gt-xs="100" fxFlex="100">
   <mat-card class="oh text-center little-profile">
+    <mat-form-field class='date-input'>
+      <input
+        matInput
+        [matDatepicker]="picker"
+        placeholder="Choose a start date"
+        #startDate
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field class='date-input'>
+      <input
+        matInput
+        [matDatepicker]="picker1"
+        placeholder="Choose a end date"
+        #endDate
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker touchUi #picker1></mat-datepicker>
+    </mat-form-field>
+    <button mat-raised-button color="primary" (click)="searchRange()">Search</button>
+  </mat-card>
+
+  <mat-card class="oh text-center little-profile">
     <mat-card-content>
       <h3>Transaction Details</h3>
-      <mat-tab-group (selectedTabChange)="onLinkClick($event)">
+      <mat-tab-group (selectedTabChange)="onLinkClick($event)" mat-stretch-tabs>
         <mat-tab label="First" *ngFor="let tab of tabs">
           <mat-card>
             <mat-card-content>
