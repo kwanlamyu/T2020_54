@@ -32,7 +32,10 @@ export class DashboardComponent implements AfterViewInit {
 
   // tslint:disable-next-line: use-lifecycle-interface
   ngOnInit() {
+
     this.userId = sessionStorage.getItem('userId');
+
+    document.getElementById("dashimg")['src'] = "assets/images/users/" + this.userId + ".jpg";
     // console.log(data['Pie']);
     console.log(this.userId)
     this.dashboardService.dashboard(this.userId).then(

@@ -27,7 +27,7 @@ export class ProfileComponent implements OnInit {
         console.log(response);
         this.firstName = response['firstName'];
         this.lastName = response['lastName'];
-        this.dob = response['dob'];
+        this.dob = response['dob'].split('T')[0];
         this.gender = response['gender'];
       }
     );

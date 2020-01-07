@@ -8,7 +8,8 @@ import {Router} from '@angular/router';
 })
 export class AppHeaderComponent {
 
-  constructor( private router: Router) { }
+  constructor( private router: Router) {
+  }
 
   private r = this.router.url;
 
