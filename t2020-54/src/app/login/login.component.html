@@ -6,7 +6,7 @@
       <input matInput placeholder="Username" #username required>
     </mat-form-field>
     <mat-form-field>
-      <input type="password" matInput placeholder="Pin" #pin required>
+      <input type="password" matInput placeholder="Pin" #pin maxlength="6" required>
     </mat-form-field>
     <button mat-raised-button color="primary" type="submit" (click)="onLogin(username.value, pin.value)">Login</button>
   </mat-card-content>
