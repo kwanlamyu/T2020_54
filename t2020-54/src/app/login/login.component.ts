@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
     } else {
       this.loginService.login(username).then(
         response => {
-          this.router.navigateByUrl("/dashboard");
+          //this.router.navigateByUrl("/dashboard");
+          window.location.href = "http://localhost:4200/dashboard";
         }
       );
     }

@@ -21,8 +21,15 @@ export interface Chart {
   styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent implements AfterViewInit {
-  tabs = ['First', 'Second', 'Third'];
   userId: any;
+  userName: any;
+
+  datas: any = {
+    accountId: '',
+    type: '',
+    displayName: '',
+    accountNumber: ''
+  };
 
   constructor(
     private dashboardService: DashboardService,
@@ -33,11 +40,19 @@ export class DashboardComponent implements AfterViewInit {
   // tslint:disable-next-line: use-lifecycle-interface
   ngOnInit() {
     this.userId = sessionStorage.getItem('userId');
+
+    document.getElementById("dashimg")['src'] = "assets/images/users/" + this.userId + ".jpg";
+
+    this.userName = sessionStorage.getItem('userName');
     // console.log(data['Pie']);
     console.log(this.userId)
     this.dashboardService.dashboard(this.userId).then(
-      response => {
-        console.log('dashboard res ', response);
+      (response: any) => {
+        const resp = JSON.parse(response);
+        this.datas.accountId = resp[0]['accountId'];
+        this.datas.type = resp[0]['type'];
+        this.datas.displayName = resp[0]['displayName'];
+        this.datas.accountNumber = resp[0]['accountNumber'];
       }
     );
   }
