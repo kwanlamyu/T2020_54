@@ -19,7 +19,6 @@ import { SharedModule } from './shared/shared.module';
 import { SpinnerComponent } from './shared/spinner.component';
 import { LoginComponent } from './login/login.component';
 import { ProfileComponent } from './profile/profile.component';
-import { AccountDetailsComponent } from './account-details/account-details.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +27,6 @@ import { AccountDetailsComponent } from './account-details/account-details.compo
     AppHeaderComponent,
     SpinnerComponent,
     AppSidebarComponent,
-    AccountDetailsComponent
   ],
   imports: [
     BrowserModule,

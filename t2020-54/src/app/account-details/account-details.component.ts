@@ -4,6 +4,8 @@ import * as Chartist from 'chartist';
 import { ChartType, ChartEvent } from 'ng-chartist';
 declare var require: any;
 
+const data: any = require('./data.json');
+
 export interface Chart {
   type: ChartType;
   data: Chartist.IChartistData;
