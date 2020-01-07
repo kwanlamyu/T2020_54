@@ -3,6 +3,7 @@ import { DashboardService } from './dashboard.service';
 
 import * as Chartist from 'chartist';
 import { ChartType, ChartEvent } from 'ng-chartist';
+import {UserSession} from '../UserSession';
 declare var require: any;
 
 const data: any = require('./data.json');

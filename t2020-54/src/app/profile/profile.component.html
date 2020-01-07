@@ -1,1 +1,35 @@
-<p>profile works!</p>
+<div fxLayout="row">
+  <div fxFlex.gt-sm="100%" >
+    <mat-card>
+      <mat-card-content style="text-align: center;">
+        <div class="pro-img">
+          <img id="profileImg"
+            width="100"
+            alt="user"
+            class="img-circle"
+          />
+        </div>
+        <br>
+        <mat-card-title>MY PROFILE</mat-card-title>
+        <mat-list>
+          <mat-list-item>
+            <h3 matLine>First Name</h3>
+            <p matLine class="text-muted">{{firstName}}</p>
+          </mat-list-item>
+          <mat-list-item>
+            <h3 matLine> Last Name</h3>
+            <p matLine class="text-muted">{{lastName}}</p>
+          </mat-list-item>
+          <mat-list-item>
+            <h3 matLine> Date Of Birth</h3>
+            <p matLine class="text-muted">{{dob}}</p>
+          </mat-list-item>
+          <mat-list-item>
+            <h3 matLine>Gender</h3>
+            <p matLine class="text-muted">{{gender}}</p>
+          </mat-list-item>
+        </mat-list>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

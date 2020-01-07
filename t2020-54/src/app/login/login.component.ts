@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { LoginService } from './login.service';
+import {HttpClient} from '@angular/common/http';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -10,13 +12,21 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private loginService : LoginService,
+    private router: Router
   ) { }
 
   ngOnInit() {
   }
 
-  onLogin (userId: string, pin: string) {
-    this.loginService.login(userId);
-    console.log(userId, pin);
+  onLogin (username: string, pin: string) {
+    if (!username || !pin) {
+      alert("Please enter username and pin");
+    } else {
+      this.loginService.login(username).then(
+        response => {
+          this.router.navigateByUrl("/dashboard");
+        }
+      );
+    }
   }
 }

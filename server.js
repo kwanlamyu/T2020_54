@@ -5,7 +5,9 @@ const request = require("request");
 
 const app = express();
 app.use(express.static("public"));
-app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
 
 //template obj to send a request
 var options = {
@@ -20,15 +22,12 @@ var options = {
   }
 };
 
-var userName = "";
-var accountId = 0;
-var customerId = 0;
-var messageId = 0;
 //req.body.<name of form>
 //homepage/login page
 
 app.get("/login", function(req, res) {
   //send home screen html
+  //console.log("asdhksd               " , req.body);
   res.sendFile(__dirname + "/t2020-54/src/app/login/login.component.html");
   //console.log(__dirname + "/t2020-54/src/app/login/login.component.html");
   //res.send("<h1>Hello!</h1>");
@@ -46,60 +45,117 @@ app.get("/login", function(req, res) {
 //     res.send();
 //   });
 // });
+
+
 app.post("/login", function(req, res) {
+  //
+  var personStuff = {
+    userName: "",
+    // accountId: 0,
+    // type: "",
+    // displayName: "",
+    // accountNumber: 0,
+    customerId: 0
+  };
   //http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/:userName
   options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/" + req.body.userId;
-  request(options, function(error, response, body){
-    //convert JSON to javascript obj
-    //var data = JSON.parse(body);
-    //console.log(data);
-    res.write(body);
-    res.send();
+  //console.log(req.body);
+  request(options, function(error, response, body) {
+    personStuff.userName = req.body.userId;
+
+    var data = JSON.parse(body);
+    personStuff.customerId = data.customerId;
+
+    res.json(personStuff);
   });
 });
 
 
 //customer details
-app.get("/customerDetails", function(req, res) {
+app.post("/profile", function(req, res) {
   //http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/:customerId/details
-  options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/2/details";
-  request(options, function(error, response, body){
-    //convert JSON to javascript obj
-    //var data = JSON.parse(body);
-    //console.log(data);
-    res.write(body);
-    res.send();
+  options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/" + req.body.customerId + "/details";
+  //options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/" + "2" + "/details";
+  request(options, function(error, response, body) {
+
+
+    var data = JSON.parse(body);
+
+    var profileDetails = {
+      firstName: data.firstName,
+      lastName: data.lastName,
+      dob: data.dateOfBirth.substr(0, 10),
+      gender: data.gender
+    };
+
+    res.json(personStuff);
   });
 });
 
+app.post("/dashboard", function(req, res) {
 
-//TRANSACTIONS
-//Transaction details
-app.get("/transactionDetails", function(req, res) {
-  //http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/transactions/:accountId?from=01-01-2018&to=01-30-2020
-  //needs accountID and date to check
-  options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/transactions/79?from=01-01-2018&to=01-30-2020";
-  request(options, function(error, response, body){
-    //convert JSON to javascript obj
-    //var data = JSON.parse(body);
-    //console.log(data);
+  var personStuff = {
+    accountId: 0,
+    type: "",
+    displayName: "",
+    accountNumber: 0
+  };
 
-    res.write(body);
-    res.send();
+  options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/accounts/deposit/" + req.body.customerId;
+  request(options, function(error, response, body) {
+    res.json(body);
   });
 });
 
+app.post('/account-details', function(req, res) {
 
-//List of Deposit Accounts
-app.get("/depositAccounts", function(req, res) {
-  //"http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/accounts/deposit/:customerId"
-  options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/accounts/deposit/2";
-  request(options, function(error, response, body){
-    //convert JSON to javascript obj
-    //var data = JSON.parse(body);
-    //console.log(data);
-    res.write(body);
-    res.send();
+  var transacDetails = {
+    transactions: {},
+    monthlyExpenses: {
+      atm: 0,
+      leisure: 0,
+      food: 0,
+      transport: 0,
+      others: 0,
+      total: 0
+    }
+  };
+
+  options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/transactions/"+ req.body.accountId + "?from=" + req.body.startDate + "&to=" + req.body.endDate;
+  request(options, function(error, response, body) {
+    transacDetails.transactions = body;
+    //get the json data
+    var jsonData = JSON.parse(body);
+    //total amount spent for each category
+    var atm = 0;
+    var leisure = 0;
+    var food = 0;
+    var transport = 0;
+    var others = 0;
+
+    for (var id in jsonData) {
+      if (jsonData[id].tag.toString() === "ATM") {
+        atm += Number(jsonData[id].amount);
+      } else if (jsonData[id].tag.toString() === "LEISURE") {
+        leisure += Number(jsonData[id].amount);
+      } else if (jsonData[id].tag.toString() === "F&B") {
+        food += Number(jsonData[id].amount);
+      } else if (jsonData[id].tag.toString() === "TRANSFER") {
+        transport += Number(jsonData[id].amount);
+      } else {
+        others += Number(jsonData[id].amount);
+      }
+    }
+    // total amount spent for the month
+    var total = Number(atm.toFixed(2)) + Number(leisure.toFixed(2)) + Number(food.toFixed(2)) + Number(transport.toFixed(2)) + Number(others.toFixed(2));
+    transacDetails.monthlyExpenses.atm = atm.toFixed(2);
+    transacDetails.monthlyExpenses.leisure = leisure.toFixed(2);
+    transacDetails.monthlyExpenses.food = food.toFixed(2);
+    transacDetails.monthlyExpenses.transport = transport.toFixed(2);
+    transacDetails.monthlyExpenses.others = others.toFixed(2);
+    transacDetails.monthlyExpenses.total = total.toFixed(2);
+    console.log(transacDetails);
+    res.json(transacDetails)
   });
 });
 
@@ -107,7 +163,7 @@ app.get("/depositAccounts", function(req, res) {
 app.get("/depositAccountsBalance", function(req, res) {
   //"http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/accounts/deposit/:accountId/balance?month=1&year=2018"
   options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/accounts/deposit/79/balance?month=0&year=2018";
-  request(options, function(error, response, body){
+  request(options, function(error, response, body) {
     //convert JSON to javascript obj
     //var data = JSON.parse(body);
     //console.log(data);
@@ -120,7 +176,7 @@ app.get("/depositAccountsBalance", function(req, res) {
 app.get("/marketingMessages", function(req, res) {
   //"http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/marketing"
   options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/marketing";
-  request(options, function(error, response, body){
+  request(options, function(error, response, body) {
     //convert JSON to javascript obj
     //var data = JSON.parse(body);
     //console.log(data);
@@ -133,7 +189,7 @@ app.get("/marketingMessages", function(req, res) {
 app.get("/marketingMessageDetails", function(req, res) {
   //"http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/marketing/:id"
   options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/marketing/1";
-  request(options, function(error, response, body){
+  request(options, function(error, response, body) {
     //convert JSON to javascript obj
     //var data = JSON.parse(body);
     //console.log(data);
@@ -146,7 +202,7 @@ app.get("/marketingMessageDetails", function(req, res) {
 app.get("/personalMessage", function(req, res) {
   //"http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/message/:customerId"
   options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/message/2";
-  request(options, function(error, response, body){
+  request(options, function(error, response, body) {
     //convert JSON to javascript obj
     //var data = JSON.parse(body);
     //console.log(data);
@@ -154,47 +210,6 @@ app.get("/personalMessage", function(req, res) {
     res.send();
   });
 });
-
-app.get('/monthlyExpensesChart', function (req, res) {
-
-  //get the json data
-  var jsonData = []
-      
-  //total amount spent for each category
-  var atm = 0;
-  var leisure = 0;
-  var food = 0;
-  var transport = 0;
-  var others = 0;
-
-  for(var id in jsonData) {
-      if(jsonData[id].tag.toString() === "ATM"){
-          atm += Number(jsonData[id].amount);
-      }
-      else if(jsonData[id].tag.toString() === "LEISURE"){
-          leisure += Number(jsonData[id].amount);
-      }
-      else if(jsonData[id].tag.toString() === "F&B"){
-          food += Number(jsonData[id].amount);
-      }
-      else if(jsonData[id].tag.toString() === "TRANSFER"){
-          transport += Number(jsonData[id].amount);
-      }
-      else{
-          others += Number(jsonData[id].amount);
-      }
-  }
-  // total amount spent for the month
-  var total = Number(atm.toFixed(2)) + Number(leisure.toFixed(2)) + Number(food.toFixed(2)) + Number(transport.toFixed(2)) + Number(others.toFixed(2));
-  var jsonObj = [{'atm': atm.toFixed(2)},
-                  {'leisure': leisure.toFixed(2)},
-                  {'food': food.toFixed(2)},
-                  {'transport': transport.toFixed(2)},
-                  {'others': others.toFixed(2)},
-                  {'total' : total.toFixed(2)}];
-                  
-  res.send(jsonObj)
-})
 
 
 app.listen(3000, function() {
