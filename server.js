@@ -121,7 +121,8 @@ app.post('/account-details', function(req, res) {
     }
   };
 
-  options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/transactions/"+ req.body.accountId + "?from=" + req.body.startDate + "&to=" + req.body.endDate;
+  //options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/transactions/"+ req.body.accountId + "?from=" + req.body.startDate + "&to=" + req.body.endDate;
+  options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/transactions/"+ req.body.accountId + "?from=01-01-2018&to=01-30-2018";
   request(options, function(error, response, body) {
     transacDetails.transactions = body;
     //get the json data
@@ -154,21 +155,7 @@ app.post('/account-details', function(req, res) {
     transacDetails.monthlyExpenses.transport = transport.toFixed(2);
     transacDetails.monthlyExpenses.others = others.toFixed(2);
     transacDetails.monthlyExpenses.total = total.toFixed(2);
-    console.log(transacDetails);
     res.json(transacDetails)
-  });
-});
-
-//List of Deposit Accounts
-app.get("/depositAccounts", function(req, res) {
-  //"http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/accounts/deposit/:customerId"
-  options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/accounts/deposit/2";
-  request(options, function(error, response, body) {
-    //convert JSON to javascript obj
-    //var data = JSON.parse(body);
-    //console.log(data);
-    res.write(body);
-    res.send();
   });
 });
 
