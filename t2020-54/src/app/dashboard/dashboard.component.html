@@ -15,33 +15,34 @@
       <mat-card-content>
         <div class="pro-img">
           <img
+            src="assets/images/users/4.jpg"
             width="100"
             alt="user"
             class="img-circle"
-            id="dashimg"
           />
         </div>
-        <h3 class="m-b-0">Placeholder Name</h3>
+        <h3 class="m-b-0">{{ userName }}</h3>
         <mat-tab-group mat-stretch-tabs>
-          <mat-tab label="First" *ngFor="let tab of tabs">
+          <mat-tab label="First" >
+            <!-- <mat-tab label="First" *ngFor="let data of datas"> -->
             <div fxLayout="row" fxLayoutWrap="wrap" class="m-t-30">
               <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
-                <h5 class="m-0 font-light">Placeholder Account Type</h5>
+                <h5 class="m-0 font-light">{{ datas.type }}</h5>
                 <small>Account Type</small>
               </div>
               <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
-                <h5 class="m-0 font-light">Placeholder Account Name</h5>
+                <h5 class="m-0 font-light">{{datas.displayName}}</h5>
                 <small>Account Name</small>
               </div>
               <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
-                <h5 class="m-0 font-light">Placeholder Account Number</h5>
+                <h5 class="m-0 font-light">{{datas.accountNumber}}</h5>
                 <small>Account Number</small>
               </div>
             </div>
-            <div style="text-align: center; padding-top: 20px;">
+            <!-- <div style="text-align: center; padding-top: 20px;">
               <h5 class="m-0 font-light">Placeholder Account Balance</h5>
               <small>Account Balance</small>
-            </div>
+            </div> -->
             <mat-card-actions>
               <a href="account-details" mat-button color="warn">Account Details</a>
             </mat-card-actions>
@@ -52,7 +53,10 @@
   </div>
   <!-- column -->
   <!-- column -->
-  <div fxFlex.gt-lg="50" fxFlex.gt-md="50" fxFlex.gt-xs="100" fxFlex="100">
+  <!-- ============================================================== -->
+  <!-- Personal Messages row-->
+  <!-- ============================================================== -->
+  <!-- <div fxFlex.gt-lg="50" fxFlex.gt-md="50" fxFlex.gt-xs="100" fxFlex="100">
     <mat-card [style.overflow-y]="'auto'" [style.height.px]="'600'">
       <mat-card-content>
         <div class="d-flex no-blcok">
@@ -77,7 +81,7 @@
         </div>
       </mat-card-content>
     </mat-card>
-  </div>
+  </div> -->
 </div>
 <!-- ============================================================== -->
 <!-- Chart row-->
@@ -99,82 +103,81 @@
                   <i class="mdi mdi-checkbox-blank-circle font-10 m-r-10 "></i
                   >Ample
                 </h6>
-              </li>
-              <li>
-                <h6 class=" text-info m-0">
-                  <i class="mdi mdi-checkbox-blank-circle font-10 m-r-10"></i
-                  >Pixel
-                </h6>
-              </li>
-            </ul>
-          </div>
-        </div>
+              </li><li>
+  <h6 class=" text-info m-0">
+    <i class="mdi mdi-checkbox-blank-circle font-10 m-r-10"></i
+    >Pixel
+  </h6>
+</li>
+</ul>
+</div>
+</div>
 
-        <div class="barchrt" style="height:360px;">
-          <x-chartist
-            class=""
-            [data]="barChart1.data"
-            [type]="barChart1.type"
-            [options]="barChart1.options"
-            [responsiveOptions]="barChart1.responsiveOptions"
-            [events]="barChart1.events"
-          >
-          </x-chartist>
-        </div>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <!-- column -->
-  <!-- column -->
-  <div fxFlex.gt-lg="40" fxFlex.gt-md="40" fxFlex.gt-xs="100" fxFlex="100">
-    <mat-card>
-      <mat-card-content>
-        <mat-card-title>Expenditure</mat-card-title>
-        <mat-card-subtitle>Percentage</mat-card-subtitle>
-        <div class="piechart">
-          <x-chartist
-            class=""
-            [data]="donuteChart1.data"
-            [type]="donuteChart1.type"
-            [options]="donuteChart1.options"
-            [responsiveOptions]="donuteChart1.responsiveOptions"
-            [events]="donuteChart1.events"
-          >
-          </x-chartist>
-        </div>
-      </mat-card-content>
-      <hr />
-      <mat-card-content>
-        <ul class="list-inline text-center">
-          <li>
-            <h6 class="text-success m-0">
-              <i class="mdi mdi-checkbox-blank-circle font-8 m-r-10 "></i>ATM
-            </h6>
-          </li>
-          <li>
-            <h6 class="text-info  m-0">
-              <i class="mdi mdi-checkbox-blank-circle font-8 m-r-10"></i>Food
-            </h6>
-          </li>
-          <li>
-            <h6 class="text-purple  m-0">
-              <i class="mdi mdi-checkbox-blank-circle font-8 m-r-10"></i>Leisure
-            </h6>
-          </li>
-          <li>
-            <h6 style="color: #ff9900;" class="m-0">
-              <i class="mdi mdi-checkbox-blank-circle font-8 m-r-10"></i
-              >Transport
-            </h6>
-          </li>
-          <li>
-            <h6 style="color: #d9d9d9;" class="m-0">
-              <i class="mdi mdi-checkbox-blank-circle font-8 m-r-10"></i>Others
-            </h6>
-          </li>
-        </ul>
-      </mat-card-content>
-    </mat-card>
-  </div>
-  <!-- column -->
+<div class="barchrt" style="height:360px;">
+  <x-chartist
+    class=""
+    [data]="barChart1.data"
+    [type]="barChart1.type"
+    [options]="barChart1.options"
+    [responsiveOptions]="barChart1.responsiveOptions"
+    [events]="barChart1.events"
+  >
+  </x-chartist>
+</div>
+</mat-card-content>
+</mat-card>
+</div>
+<!-- column -->
+<!-- column -->
+<div fxFlex.gt-lg="40" fxFlex.gt-md="40" fxFlex.gt-xs="100" fxFlex="100">
+  <mat-card>
+    <mat-card-content>
+      <mat-card-title>Expenditure</mat-card-title>
+      <mat-card-subtitle>Percentage</mat-card-subtitle>
+      <div class="piechart">
+        <x-chartist
+          class=""
+          [data]="donuteChart1.data"
+          [type]="donuteChart1.type"
+          [options]="donuteChart1.options"
+          [responsiveOptions]="donuteChart1.responsiveOptions"
+          [events]="donuteChart1.events"
+        >
+        </x-chartist>
+      </div>
+    </mat-card-content>
+    <hr />
+    <mat-card-content>
+      <ul class="list-inline text-center">
+        <li>
+          <h6 class="text-success m-0">
+            <i class="mdi mdi-checkbox-blank-circle font-8 m-r-10 "></i>ATM
+          </h6>
+        </li>
+        <li>
+          <h6 class="text-info  m-0">
+            <i class="mdi mdi-checkbox-blank-circle font-8 m-r-10"></i>Food
+          </h6>
+        </li>
+        <li>
+          <h6 class="text-purple  m-0">
+            <i class="mdi mdi-checkbox-blank-circle font-8 m-r-10"></i>Leisure
+          </h6>
+        </li>
+        <li>
+          <h6 style="color: #ff9900;" class="m-0">
+            <i class="mdi mdi-checkbox-blank-circle font-8 m-r-10"></i
+            >Transport
+          </h6>
+        </li>
+        <li>
+          <h6 style="color: #d9d9d9;" class="m-0">
+            <i class="mdi mdi-checkbox-blank-circle font-8 m-r-10"></i>Others
+          </h6>
+        </li>
+      </ul>
+    </mat-card-content>
+  </mat-card>
+</div>
+<!-- column -->
 </div>
