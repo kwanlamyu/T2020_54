@@ -8,7 +8,7 @@ export class AccountDetailsService {
 
   constructor(private http: HttpClient) { }
 
-  dashboard(accountId: string, startDate: string, endDate: string) {
+  accountDetails(accountId: string, startDate: string, endDate: string) {
     console.log('@login Getting user id');
     const url = 'http://192.168.50.103:3000/account-details';
 

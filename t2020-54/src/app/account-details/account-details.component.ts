@@ -1,5 +1,6 @@
 import { Component, AfterViewInit, OnInit, Input } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material';
+import { AccountDetailsService } from './account-details.service';
 
 import * as Chartist from 'chartist';
 import { ChartType, ChartEvent } from 'ng-chartist';
@@ -23,7 +24,7 @@ export interface Chart {
 export class AccountDetailsComponent implements OnInit {
   tabs = ['First', 'Second', 'Third'];
 
-  constructor() { }
+  constructor(private accountDetailsService: AccountDetailsService, ) { }
 
   ngOnInit() {
   }
