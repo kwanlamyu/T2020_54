@@ -26,11 +26,7 @@ import { ProfileComponent } from './profile/profile.component';
     FullComponent,
     AppHeaderComponent,
     SpinnerComponent,
-<<<<<<< HEAD
-    AppSidebarComponent,
-=======
     AppSidebarComponent
->>>>>>> 4e4ab538ad8953267a5d26aaa27af1b7cf208e4d
   ],
   imports: [
     BrowserModule,
