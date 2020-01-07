@@ -65,6 +65,7 @@ app.get("/transactionDetails", function(req, res) {
     //convert JSON to javascript obj
     //var data = JSON.parse(body);
     //console.log(data);
+
     res.write(body);
     res.send();
   });
@@ -135,6 +136,47 @@ app.get("/personalMessage", function(req, res) {
     res.send();
   });
 });
+
+app.get('/monthlyExpensesChart', function (req, res) {
+
+  //get the json data
+  var jsonData = []
+      
+  //total amount spent for each category
+  var atm = 0;
+  var leisure = 0;
+  var food = 0;
+  var transport = 0;
+  var others = 0;
+
+  for(var id in jsonData) {
+      if(jsonData[id].tag.toString() === "ATM"){
+          atm += Number(jsonData[id].amount);
+      }
+      else if(jsonData[id].tag.toString() === "LEISURE"){
+          leisure += Number(jsonData[id].amount);
+      }
+      else if(jsonData[id].tag.toString() === "F&B"){
+          food += Number(jsonData[id].amount);
+      }
+      else if(jsonData[id].tag.toString() === "TRANSFER"){
+          transport += Number(jsonData[id].amount);
+      }
+      else{
+          others += Number(jsonData[id].amount);
+      }
+  }
+  // total amount spent for the month
+  var total = Number(atm.toFixed(2)) + Number(leisure.toFixed(2)) + Number(food.toFixed(2)) + Number(transport.toFixed(2)) + Number(others.toFixed(2));
+  var jsonObj = [{'atm': atm.toFixed(2)},
+                  {'leisure': leisure.toFixed(2)},
+                  {'food': food.toFixed(2)},
+                  {'transport': transport.toFixed(2)},
+                  {'others': others.toFixed(2)},
+                  {'total' : total.toFixed(2)}];
+                  
+  res.send(jsonObj)
+})
 
 
 app.listen(3000, function() {
