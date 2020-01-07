@@ -53,30 +53,15 @@ app.get("/login", function(req, res) {
 //   });
 // });
 
-function getAccData(personStuff, id) {
-  options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/accounts/deposit/" + id;
-  request(options, function(error, response, body) {
-    console.log(body);
-    var accountData = JSON.parse(body);
-    console.log(accountData[0]);
-    personStuff.accounts.accountId = accountData[0].accountId;
-    personStuff.accounts.type = accountData[0].type;
-    personStuff.accounts.displayName = accountData[0].displayName;
-    personStuff.accounts.accountNumber = accountData[0].accountNumber;
-    return personStuff;
-  });
-}
 
 app.post("/login", function(req, res) {
   //
   var personStuff = {
     userName: "",
-    // accounts: {
-    //   accountId: 0,
-    //   type: "",
-    //   displayName: "",
-    //   accountNumber: 0
-    // },
+    // accountId: 0,
+    // type: "",
+    // displayName: "",
+    // accountNumber: 0,
     customerId: 0
   };
   //http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/:userName
@@ -87,9 +72,7 @@ app.post("/login", function(req, res) {
 
     var data = JSON.parse(body);
     personStuff.customerId = data.customerId;
-    //console.log("ID");
-    //console.log(data.customerId);
-    //res.write(body);
+
     res.json(personStuff);
   });
 
@@ -100,7 +83,7 @@ app.post("/login", function(req, res) {
 //customer details
 app.post("/profile", function(req, res) {
   //http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/:customerId/details
-  options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/" + req.body.userId + "/details";
+  options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/" + req.body.customerId + "/details";
   //options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/customers/" + "2" + "/details";
   request(options, function(error, response, body) {
 
@@ -118,6 +101,28 @@ app.post("/profile", function(req, res) {
   });
 });
 
+app.get("/dashboard", function(req, res) {
+
+  var personStuff = {
+    accountId: 0,
+    type: "",
+    displayName: "",
+    accountNumber: 0
+  };
+
+  options.url = "http://techtrek-api-gateway.ap-southeast-1.elasticbeanstalk.com/accounts/deposit/" + req.body.customerId;
+  request(options, function(error, response, body) {
+    // console.log(body);
+    // var accountData = JSON.parse(body);
+    // console.log(accountData);
+    // personStuff.accountId = accountData.accountId;
+    // personStuff.type = accountData.type;
+    // personStuff.displayName = accountData.displayName;
+    // personStuff.accountNumber = accountData.accountNumber;
+    // console.log(personStuff);
+    res.json(body);
+  });
+});
 
 //TRANSACTIONS
 //Transaction details
