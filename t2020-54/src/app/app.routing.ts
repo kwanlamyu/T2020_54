@@ -13,6 +13,11 @@ export const AppRoutes: Routes = [
         pathMatch: 'full'
       },
       {
+        path: 'login',
+        redirectTo: '/login',
+        pathMatch: 'full'
+      },
+      {
         path: '',
         loadChildren:
           () => import('./material-component/material.module').then(m => m.MaterialComponentsModule)
