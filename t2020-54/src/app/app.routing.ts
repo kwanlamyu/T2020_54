@@ -27,6 +27,10 @@ export const AppRoutes: Routes = [
       {
         path: 'profile',
         loadChildren: () => import('./profile/profile.module').then(m => m.ProfileModule)
+      },
+      {
+        path: 'account-details',
+        loadChildren: () => import('./account-details/account-details.module').then(m => m.AccountDetailsModule)
       }
     ]
   }

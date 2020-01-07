@@ -4,8 +4,6 @@ import * as Chartist from 'chartist';
 import { ChartType, ChartEvent } from 'ng-chartist';
 declare var require: any;
 
-const data: any = require('./data.json');
-
 export interface Chart {
   type: ChartType;
   data: Chartist.IChartistData;
@@ -15,21 +13,18 @@ export interface Chart {
 }
 
 @Component({
-  selector: 'app-dashboard',
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  selector: 'app-account-details',
+  templateUrl: './account-details.component.html',
+  styleUrls: ['./account-details.component.scss']
 })
-export class DashboardComponent implements AfterViewInit {
+export class AccountDetailsComponent implements OnInit {
   tabs = ['First', 'Second', 'Third'];
 
-  ngAfterViewInit() { }
+  constructor() { }
 
-  // tslint:disable-next-line: use-lifecycle-interface
   ngOnInit() {
-    console.log(data['Pie']);
   }
 
-  // Barchart
   // tslint:disable-next-line: member-ordering
   barChart1: Chart = {
     type: 'Bar',
@@ -69,18 +64,4 @@ export class DashboardComponent implements AfterViewInit {
     ]
   };
 
-  // This is for the donute chart
-  // tslint:disable-next-line: member-ordering
-  donuteChart1: Chart = {
-    type: 'Pie',
-    data: {
-      series: [10, 10, 10, 10, 60]
-    },
-    options: {
-      donut: true,
-      height: 260,
-      showLabel: false,
-      donutWidth: 20
-    }
-  };
 }
