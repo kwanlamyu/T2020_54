@@ -21,27 +21,28 @@
             class="img-circle"
           />
         </div>
-        <h3 class="m-b-0">Placeholder Name</h3>
+        <h3 class="m-b-0">{{ userName }}</h3>
         <mat-tab-group mat-stretch-tabs>
-          <mat-tab label="First" *ngFor="let tab of tabs">
+          <mat-tab label="First" >
+          <!-- <mat-tab label="First" *ngFor="let data of datas"> -->
             <div fxLayout="row" fxLayoutWrap="wrap" class="m-t-30">
               <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
-                <h5 class="m-0 font-light">Placeholder Account Type</h5>
+                <h5 class="m-0 font-light">{{ datas.type }}</h5>
                 <small>Account Type</small>
               </div>
               <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
-                <h5 class="m-0 font-light">Placeholder Account Name</h5>
+                <h5 class="m-0 font-light">{{datas.displayName}}</h5>
                 <small>Account Name</small>
               </div>
               <div fxFlex.gt-sm="33.33%" fxFlex.gt-xs="33.33%" fxFlex="100">
-                <h5 class="m-0 font-light">Placeholder Account Number</h5>
+                <h5 class="m-0 font-light">{{datas.accountNumber}}</h5>
                 <small>Account Number</small>
               </div>
             </div>
-            <div style="text-align: center; padding-top: 20px;">
+            <!-- <div style="text-align: center; padding-top: 20px;">
               <h5 class="m-0 font-light">Placeholder Account Balance</h5>
               <small>Account Balance</small>
-            </div>
+            </div> -->
             <mat-card-actions>
               <a href="account-details" mat-button color="warn">Account Details</a>
             </mat-card-actions>

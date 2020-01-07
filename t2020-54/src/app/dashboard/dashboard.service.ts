@@ -13,7 +13,7 @@ export class DashboardService {
     const url = 'http://192.168.50.103:3000/dashboard';
 
     let params = new HttpParams();
-    params = params.append('userId', userId);
+    params = params.append('customerId', userId);
 
     return new Promise(
       (resolve, reject) => {
