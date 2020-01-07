@@ -2,6 +2,7 @@ import { Component, AfterViewInit, OnInit } from '@angular/core';
 
 import * as Chartist from 'chartist';
 import { ChartType, ChartEvent } from 'ng-chartist';
+import {UserSession} from '../UserSession';
 declare var require: any;
 
 const data: any = require('./data.json');
@@ -27,6 +28,7 @@ export class DashboardComponent implements AfterViewInit {
   // tslint:disable-next-line: use-lifecycle-interface
   ngOnInit() {
     console.log(data['Pie']);
+    console.log(UserSession.userId);
   }
 
   // Barchart
